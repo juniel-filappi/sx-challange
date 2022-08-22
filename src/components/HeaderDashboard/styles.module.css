@@ -1,0 +1,15 @@
+.backgroundImage::after {
+  background-image: url("/background.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  content: "";
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 4rem;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}

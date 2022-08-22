@@ -10,7 +10,7 @@ export default function Document() {
           rel="stylesheet"
         />
 
-        <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+        <link rel="shortcut icon" href="/favicon.jpeg" type="image/jpeg" />
       </Head>
       <body>
         <Main />

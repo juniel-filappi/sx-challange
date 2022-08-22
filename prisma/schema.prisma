@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgres://wnzeoyeylafghr:365ef7f00cf504fbcea340870e953f6ed3af896f62b6c8b5153f446f21e1a3f3@ec2-44-205-64-253.compute-1.amazonaws.com:5432/ddg7260eccc506"
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String
+  createdAt DateTime
+  updatedAt DateTime
+  Company   Company[]
+}
+
+model Company {
+  id          Int           @id @default(autoincrement())
+  userId      Int
+  user        User          @relation(fields: [userId], references: [id])
+  code        String
+  cnpj        String
+  email       String
+  phone       String
+  address     String
+  name        String
+  createdAt   DateTime
+  updatedAt   DateTime
+  Colaborator Colaborator[]
+}
+
+model Colaborator {
+  id        Int      @id @default(autoincrement())
+  companyId Int
+  company   Company  @relation(fields: [companyId], references: [id])
+  code      String
+  cpf       String
+  name      String
+  email     String
+  phone     String
+  address   String
+  createdAt DateTime
+  updatedAt DateTime
+}
