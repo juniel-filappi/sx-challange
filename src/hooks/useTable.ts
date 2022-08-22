@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { ICompany } from "../interfaces/ICompany";
 
-const calculateRange = (data: string[], rowsPerPage: number) => {
+const calculateRange = (data: ICompany[], rowsPerPage: number) => {
   const range = [];
   const num = Math.ceil(data.length / rowsPerPage);
   let i = 1;
@@ -10,13 +11,13 @@ const calculateRange = (data: string[], rowsPerPage: number) => {
   return range;
 };
 
-const sliceData = (data: string[], page: number, rowsPerPage: number) => {
+const sliceData = (data: ICompany[], page: number, rowsPerPage: number) => {
   return data.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 };
 
-const useTable = (data: string[], page: number, rowsPerPage: number) => {
+const useTable = (data: ICompany[], page: number, rowsPerPage: number) => {
   const [tableRange, setTableRange] = useState<number[]>([]);
-  const [slice, setSlice] = useState<string[]>([]);
+  const [slice, setSlice] = useState<ICompany[]>([]);
 
   useEffect(() => {
     const range = calculateRange(data, rowsPerPage);

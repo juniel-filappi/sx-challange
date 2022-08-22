@@ -4,7 +4,7 @@ import { HeaderDashboard } from "./HeaderDashboard";
 
 interface LayoutProps {
   title: string;
-  children: ReactElement[];
+  children?: ReactElement[] | ReactElement;
 }
 
 export function Layout({ children, title }: LayoutProps) {
