@@ -25,6 +25,7 @@ export default async function handler(
 
     return res.json(companies);
   } catch (err) {
+    console.log(err)
     await prisma.$disconnect();
 
     return res.status(500).json(err);
