@@ -6,11 +6,11 @@ export function DashboardButton() {
   const { push } = useRouter();
   const handleSubscribe = async () => {
     if (!session) {
-      signIn("github", { callbackUrl: "/dashboard" });
+      signIn("github", { callbackUrl: "/companies" });
       return;
     }
 
-    push("/dashboard");
+    push("/companies");
   };
   return (
     <button

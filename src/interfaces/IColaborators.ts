@@ -1,14 +1,15 @@
-import { IColaborator } from "./IColaborators";
+import { ICompany } from "./ICompany";
 
-export interface ICompany {
+export interface IColaborator {
   id: number;
   name: string;
   code: string;
-  cnpj: string;
+  cpf: string;
   email: string;
   phone: string;
-  colaborators: IColaborator[];
   address: string;
+  companyId: number;
+  company?: ICompany;
   createdAt: string;
   updatedAt: string;
 }

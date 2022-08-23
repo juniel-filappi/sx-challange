@@ -1,38 +1,48 @@
-import { useFormik } from "formik";
+import { GetServerSidePropsContext } from "next";
+import { showCompany, updateCompany } from "../../../services/company";
+import { ICompany } from "../../../interfaces/ICompany";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useFormik } from "formik";
+import { handleSuccess } from "../../../utils/success";
+import { handleError } from "../../../utils/error";
+import { updateCompanyValidator } from "../../../validators/companyValidator";
+import { Layout } from "../../../components/Layout";
 import { FaArrowLeft } from "react-icons/fa";
-import { Button } from "../../../components/Button";
 import { FormInput } from "../../../components/FormInput";
 import { FormInputMask } from "../../../components/FormInputMask";
-import { Layout } from "../../../components/Layout";
-import { createCompany } from "../../../services/company";
-import { handleError } from "../../../utils/error";
+import { Button } from "../../../components/Button";
 import { getAllNumbers } from "../../../utils/helpers";
-import { handleSuccess } from "../../../utils/success";
-import { createCompanyValidator } from "../../../validators/companyValidator";
+import TableColaborator from "../../../components/TableColaborator";
+import Link from "next/link";
 
-export default function CreateCompany() {
+interface EditCompanyProps {
+  company: ICompany;
+}
+
+export default function EditCompany({ company }: EditCompanyProps) {
   const { push, back } = useRouter();
+
   const [loading, setLoading] = useState(false);
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      code: "",
-      name: "",
-      email: "",
-      phone: "",
-      cnpj: "",
-      address: "",
+      id: company.id,
+      code: company.code,
+      name: company.name,
+      email: company.email,
+      phone: company.phone,
+      cnpj: company.cnpj,
+      address: company.address,
     },
     onSubmit: async (values) => {
       setLoading(true);
       try {
-        await createCompany({
+        await updateCompany({
           ...values,
           cnpj: getAllNumbers(values.cnpj),
           phone: getAllNumbers(values.phone),
         });
-        handleSuccess("Empresa criada com sucesso!");
+        handleSuccess("Empresa atualizada com sucesso!");
         push("/companies");
       } catch (error) {
         handleError(error, "Não foi possivel criar a empresa");
@@ -40,17 +50,18 @@ export default function CreateCompany() {
         setLoading(false);
       }
     },
-    validationSchema: createCompanyValidator,
+    validationSchema: updateCompanyValidator,
   });
+
   return (
-    <Layout title="Cadastrar Empresa">
+    <Layout title={`Editar ${company.name}`}>
       <div>
         <h1 className="text-3xl flex items-center">
           <FaArrowLeft
             className="mr-2 cursor-pointer hover:text-bluesx"
             onClick={() => back()}
           />
-          Cadastrar / Empresa
+          Editar / {company.name}
         </h1>
       </div>
       <form onSubmit={handleSubmit}>
@@ -114,11 +125,38 @@ export default function CreateCompany() {
           </div>
           <div className="flex justify-end mt-2">
             <Button disabled={loading} type="submit">
-              Salvar
+              Editar
             </Button>
           </div>
         </div>
       </form>
+      {company.colaborators.length > 0 ? (
+        <div className="mt-20">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl mb-2">Colaboradores</h2>
+            <Link href="/colaborators/create">
+              <button className="border-none px-4 py-2 rounded-xl cursor-pointer mx-1 mb-1 text-black bg-bluesx hover:brightness-75 transition-all duration-200">
+                Cadastrar Colaborador
+              </button>
+            </Link>
+          </div>
+          <TableColaborator data={company.colaborators} rowsPerPage={4} />
+        </div>
+      ) : (
+        <div></div>
+      )}
     </Layout>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { id } = context.query;
+
+  const company = await showCompany(Number(id));
+
+  return {
+    props: {
+      company,
+    },
+  };
 }

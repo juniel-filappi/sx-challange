@@ -11,39 +11,42 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  name      String
-  email     String
-  createdAt DateTime
-  updatedAt DateTime
-  Company   Company[]
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String
+  createdAt    DateTime
+  updatedAt    DateTime
+  companies    Company[]
+  colaborators Colaborator[]
 }
 
 model Company {
-  id          Int           @id @default(autoincrement())
-  userId      Int
-  user        User          @relation(fields: [userId], references: [id])
-  code        String
-  cnpj        String
-  email       String
-  phone       String
-  address     String
-  name        String
-  createdAt   DateTime
-  updatedAt   DateTime
-  Colaborator Colaborator[]
+  id           Int           @id @default(autoincrement())
+  userId       Int
+  user         User          @relation(fields: [userId], references: [id])
+  code         String
+  cnpj         String
+  email        String
+  phone        String
+  address      String?
+  name         String
+  createdAt    DateTime
+  updatedAt    DateTime
+  colaborators Colaborator[]
 }
 
 model Colaborator {
   id        Int      @id @default(autoincrement())
   companyId Int
   company   Company  @relation(fields: [companyId], references: [id])
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
   code      String
   cpf       String
   name      String
   email     String
   phone     String
-  address   String
+  address   String?
   createdAt DateTime
   updatedAt DateTime
 }
