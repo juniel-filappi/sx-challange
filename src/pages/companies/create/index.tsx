@@ -48,13 +48,17 @@ export default function CreateCompany() {
       const company = await findCompany(cnpj);
 
       if (company) {
-        setValues({
-          ...values,
-          name: company.nome,
-          email: company.email,
-          phone: company.telefone,
-          address: `${company.logradouro}, ${company.numero} - ${company.bairro}`,
-        });
+        if (company.status === "ERROR") {
+          handleError(company, "Empresa não encontrada");
+        } else {
+          setValues({
+            ...values,
+            name: company.nome,
+            email: company.email,
+            phone: company.telefone,
+            address: `${company.logradouro}, ${company.numero} - ${company.bairro}`,
+          });
+        }
       }
     } catch (error) {
       handleError(error, "Não foi possivel encontrar a empresa");
