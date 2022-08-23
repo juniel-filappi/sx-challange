@@ -6,7 +6,7 @@ import { Button } from "../../../components/Button";
 import { FormInput } from "../../../components/FormInput";
 import { FormInputMask } from "../../../components/FormInputMask";
 import { Layout } from "../../../components/Layout";
-import { createCompany, findCompany } from "../../../services/company";
+import { createCompany } from "../../../services/company";
 import { handleError } from "../../../utils/error";
 import { getAllNumbers } from "../../../utils/helpers";
 import { handleSuccess } from "../../../utils/success";
@@ -43,25 +43,6 @@ export default function CreateCompany() {
     validationSchema: createCompanyValidator,
   });
 
-  const findCompanyOnCnpj = async (cnpj: string) => {
-    try {
-      const company = await findCompany(cnpj);
-      if (company) {
-        setValues({
-          ...values,
-          name: company.nome,
-          email: company.email,
-          phone: company.telefone,
-          address: `${company.logradouro}, ${company.numero} - ${company.bairro}`,
-        });
-      }
-      return false;
-    } catch (error) {
-      console.log(error);
-      handleError(error, "Não foi possivel verificar o CNPJ");
-    }
-  };
-
   return (
     <Layout title="Cadastrar Empresa">
       <div>
@@ -93,7 +74,6 @@ export default function CreateCompany() {
               value={values.cnpj}
               error={errors?.cnpj}
               onChange={handleChange}
-              onBlur={(e) => findCompanyOnCnpj(e.target.value)}
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center mt-2">

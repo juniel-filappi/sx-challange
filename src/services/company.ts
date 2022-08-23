@@ -1,4 +1,3 @@
-import axios from "axios";
 import { getAllNumbers } from "../utils/helpers";
 import { api } from "./api";
 
@@ -40,14 +39,4 @@ export const deleteCompany = async (id: number) => {
   const { data } = await api.delete(`/api/companies/delete/${id}`);
 
   return data;
-};
-
-export const findCompany = async (cnpj: string) => {
-  if (cnpj) {
-    const formatedCnpj = getAllNumbers(cnpj);
-    const { data } = await axios.get(
-      `https://receitaws.com.br/v1/cnpj/${formatedCnpj}`
-    );
-    return data;
-  }
 };
