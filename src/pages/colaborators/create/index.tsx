@@ -81,7 +81,7 @@ export default function CreateColaborator({
   };
 
   return (
-    <Layout title="Cadastrar Empresa">
+    <Layout title="Cadastrar Colaborador">
       <div>
         <h1 className="text-3xl flex items-center">
           <FaArrowLeft

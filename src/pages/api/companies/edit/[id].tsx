@@ -19,17 +19,6 @@ export default async function handler(
 
   if (req.method === "PUT") {
     try {
-      const findCompany = await prisma.company.findFirst({
-        where: {
-          id: Number(id),
-          userId: user?.id!,
-        },
-      });
-
-      if (!findCompany) {
-        return res.status(404).json({ message: "Company not found" });
-      }
-
       await prisma.company.update({
         where: {
           id: Number(id),
@@ -64,7 +53,6 @@ export default async function handler(
       });
       return res.status(200).json(company);
     } catch (err) {
-      console.log(err)
       await prisma.$disconnect();
       return res.status(500).json(err);
     }
