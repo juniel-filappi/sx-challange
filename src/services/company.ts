@@ -40,3 +40,12 @@ export const deleteCompany = async (id: number) => {
 
   return data;
 };
+
+export const findCompany = async (cnpj: string) => {
+  if (cnpj) {
+    const cnpjFormatted = getAllNumbers(cnpj);
+    const { data } = await api.get(`/api/companies/find/${cnpjFormatted}`);
+
+    return data;
+  }
+};
