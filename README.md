@@ -57,11 +57,23 @@ Primeiro clone o repositório em seu computador, por meio do terminal utilizando
   $ cd sx-challange
 ```
 
-2. Iniciando o Projeto
+2. Configurando as variáveis de ambiente
+- Rode o comando `openssl rand -base64 32` para gerar NEXT_AUTH_SECRET.
+```sh
+GITHUB_ID=YOUR_OAUTH_APP_ID
+GITHUB_SECRET=YOUR_OAUTH_APP_SECRET
+
+NEXTAUTH_SECRET=GENERATED_WITH
+API_URL=http://localhost:3000
+```
+
+3. Iniciando o Projeto
 
 ```sh
   # Instale as dependências da aplicação
   $ yarn # ou npm install
+  # Execute o generate do prisma
+  $ yarn prisma generate
   # Execute o comando abaixo para iniciar o projeto
   $ yarn dev
 ```
