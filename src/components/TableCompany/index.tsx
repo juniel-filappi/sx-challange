@@ -6,17 +6,54 @@ import { setMaskCnpj, setMaskPhone } from "../../utils/helpers";
 import { BiPencil, BiTrash } from "react-icons/bi";
 import TableFooter from "./TableFooter";
 import { IconButton } from "../IconButton";
+import { useRouter } from "next/router";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import { deleteCompany } from "../../services/company";
+import { handleError } from "../../utils/error";
+
+const MySwal = withReactContent(Swal);
 
 interface TableProps {
   data: ICompany[];
   rowsPerPage: number;
-  onEditCompany: (id: number) => void;
-  onDeleteCompany: (id: number) => void;
 }
 
-const Table = ({ data, rowsPerPage, onDeleteCompany, onEditCompany }: TableProps) => {
+const TableCompany = ({ data, rowsPerPage }: TableProps) => {
   const [page, setPage] = useState(1);
   const { slice, range } = useTable(data, page, rowsPerPage);
+
+  const { push, replace, asPath } = useRouter();
+  const handleEditCompany = (id: number) => {
+    push(`/companies/edit/${id}`);
+  };
+  const handleDeleteCompany = async (id: number) => {
+    MySwal.fire({
+      title: "Você tem certeza?",
+      text: "Você não poderá reverter isso!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sim, deletar!",
+    }).then(async (result) => {
+      if (result.value) {
+        try {
+          await deleteCompany(id);
+          replace(asPath);
+          MySwal.fire({
+            title: "Deletado!",
+            text: "O seu registro foi deletado.",
+            icon: "success",
+            toast: true,
+            position: "top-end",
+          });
+        } catch (error) {
+          handleError(error, "Não foi possível deletar a empresa");
+        }
+      }
+    });
+  };
 
   return (
     <>
@@ -37,10 +74,13 @@ const Table = ({ data, rowsPerPage, onDeleteCompany, onEditCompany }: TableProps
             {slice.map((el) => (
               <tr key={el.id} className="border-b bg-black border-gray-700">
                 <td className="py-4 px-6 font-medium whitespace-nowrap text-white">
-                  <IconButton onClick={() => onEditCompany(el.id)}>
+                  <IconButton onClick={() => handleEditCompany(el.id)}>
                     <BiPencil />
                   </IconButton>
-                  <IconButton className="ml-2 hover:bg-red-500" onClick={() => onDeleteCompany(el.id)}>
+                  <IconButton
+                    className="ml-2 hover:bg-red-500"
+                    onClick={() => handleDeleteCompany(el.id)}
+                  >
                     <BiTrash />
                   </IconButton>
                 </td>
@@ -72,4 +112,4 @@ const Table = ({ data, rowsPerPage, onDeleteCompany, onEditCompany }: TableProps
   );
 };
 
-export default Table;
+export default TableCompany;

@@ -28,17 +28,17 @@ const TableColaborator = ({ data, rowsPerPage }: TableProps) => {
     push(`/colaborators/edit/${id}`);
   };
   const handleDeleteColaborator = async (id: number) => {
-    try {
-      MySwal.fire({
-        title: "Você tem certeza?",
-        text: "Você não poderá reverter isso!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sim, deletar!",
-      }).then(async (result) => {
-        if (result.value) {
+    MySwal.fire({
+      title: "Você tem certeza?",
+      text: "Você não poderá reverter isso!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sim, deletar!",
+    }).then(async (result) => {
+      if (result.value) {
+        try {
           await deleteColaborator(id);
           replace(asPath);
           MySwal.fire({
@@ -48,11 +48,11 @@ const TableColaborator = ({ data, rowsPerPage }: TableProps) => {
             toast: true,
             position: "top-end",
           });
+        } catch (error) {
+          handleError(error, "Não foi possível deletar o colaborador");
         }
-      });
-    } catch (error) {
-      handleError(error, "Não foi possível deletar o colaborador");
-    }
+      }
+    });
   };
 
   return (

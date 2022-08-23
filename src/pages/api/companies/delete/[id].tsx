@@ -19,6 +19,19 @@ export default async function handler(
         return;
       }
 
+      const company = await prisma.company.findFirst({
+        where: { id: Number(id) },
+        include: {
+          colaborators: true,
+        },
+      });
+
+      if (company?.colaborators && company.colaborators.length > 0) {
+        return res.status(400).json({
+          message: "Não é possível excluir uma empresa com colaboradores",
+        });
+      }
+
       await prisma.company.delete({
         where: {
           id: Number(id),
