@@ -78,6 +78,11 @@ API_URL=http://localhost:3000
   $ yarn dev
 ```
 
+Para verificar o banco de dados, rode o comando abaixo
+```sh
+$ yarn prisma studio
+```
+
 ## 💯 Padrões do projeto
 
 - Orientação a objetos;
