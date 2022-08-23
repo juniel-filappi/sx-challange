@@ -82,7 +82,6 @@ export default function Companies({ companies }: DashboardProps) {
 
 export async function getServerSideProps() {
   try {
-    console.log('aqui')
     const companies = await getCompanies();
 
     return {
