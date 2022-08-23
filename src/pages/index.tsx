@@ -19,12 +19,12 @@ const Home: NextPage = () => {
           <h1 className="text-6xl font-bold text-center mt-8">
             Bem vindo ao teste da <span className="text-bluesx">SX</span>
           </h1>
-          <p className="text-center">
+          <p className="text-center px-2">
             Neste teste você poderá realizar o cadastro de suas empresas e seus
             respectivos colaboradores.
           </p>
 
-          <h3 className="text-xl mt-10">
+          <h3 className="text-xl mt-10 px-2 text-center">
             Para dar continuidade no cadastro das suas empresas, é necessário
             que você faça o login abaixo: 👇
           </h3>

@@ -23,7 +23,7 @@ export default function Colaborators({ colaborators }: DashboardProps) {
         <div>
           <Link href="/colaborators/create">
             <button className="border-none px-4 py-2 rounded-xl cursor-pointer mx-1 mb-1 text-black bg-bluesx hover:brightness-75 transition-all duration-200">
-              Cadastrar Colaborador
+              Cadastrar <span className="hidden md:block">Colaborador</span>
             </button>
           </Link>
         </div>

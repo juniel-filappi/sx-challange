@@ -17,7 +17,7 @@ export function HeaderDashboard() {
     const currentNavigation = window.location.pathname;
 
     setCurrenteNavigation(currentNavigation);
-  } ,[currentNavigation]);
+  }, [currentNavigation]);
 
   return (
     <Disclosure as="nav" className={styles.backgroundImage}>
@@ -90,33 +90,33 @@ export function HeaderDashboard() {
           </div>
 
           <Disclosure.Panel className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <Disclosure.Button
-                as="a"
-                href="/dashboard"
-                className={classNames(
-                  currentNavigation === "Empresas"
-                    ? "bg-bluesx text-black"
-                    : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                  "block px-3 py-2 rounded-md text-base font-medium"
-                )}
-                onClick={() => setCurrenteNavigation("Empresas")}
-              >
-                Empresas
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="/dashboard/colaborators"
-                className={classNames(
-                  currentNavigation === "Colaboradores"
-                    ? "bg-bluesx text-black"
-                    : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                  "block px-3 py-2 rounded-md text-base font-medium"
-                )}
-                onClick={() => setCurrenteNavigation("Colaboradores")}
-              >
-                Colaboradores
-              </Disclosure.Button>
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
+              <Link href="/companies">
+                <button
+                  onClick={() => setCurrenteNavigation("Empresas")}
+                  className={classNames(
+                    currentNavigation === "/companies"
+                      ? "border-2 border-bluesx text-white"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                    "px-3 py-2 rounded-md text-sm font-medium max-w-sm"
+                  )}
+                >
+                  Empresas
+                </button>
+              </Link>
+              <Link href="/colaborators">
+                <button
+                  onClick={() => setCurrenteNavigation("Colaboradores")}
+                  className={classNames(
+                    currentNavigation === "/colaborators"
+                      ? "border-2 border-bluesx text-white"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                    "px-3 py-2 rounded-md text-sm font-medium  max-w-sm"
+                  )}
+                >
+                  Colaboradores
+                </button>
+              </Link>
             </div>
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="px-2 space-y-1">

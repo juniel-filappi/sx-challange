@@ -5,7 +5,7 @@ export function Header() {
     <header
       className={`w-full max-w-5xl flex justify-center my-0 mx-auto ${styles.backgroundImage}`}
     >
-      <div className="w-full flex justify-between items-center py-4">
+      <div className="w-full flex justify-between items-center py-4 px-2">
         <div className="flex items-center">
           <h1 className="ml-2 text-2xl font-bold">
             <span className="text-[#00D8FD]">SX</span>&CO
