@@ -1,4 +1,4 @@
-# 🗺 Projeto "Challange SX"
+# 🗺 Projeto "SX"
 
 <h2 align="center">
     <img alt="Dominun" src="public/logo.png" height="50px" />
@@ -26,7 +26,7 @@
 
 ## 💭 Sobre
 
-O projeto "Challange SX", é uma solução completa para cadastro de empresas e seus colaboradores no Brasil, que traz funcionalidades para qualquer tipo de negócio prestador de serviços. Fácil de configurar e ainda mais fácil de usar para qualquer empreendedor!.
+O projeto "SX", é uma solução completa para cadastro de empresas e seus colaboradores no Brasil, que traz funcionalidades para qualquer tipo de negócio prestador de serviços. Fácil de configurar e ainda mais fácil de usar para qualquer empreendedor!.
 
 ## 👨‍💻 Tecnologias Utilizadas
 
